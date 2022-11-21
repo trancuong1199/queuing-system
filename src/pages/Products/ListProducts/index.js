@@ -43,7 +43,7 @@ function ListProducts() {
     const [selected, setSelected] = useState('Mời chọn');
     const [isConnect, setIsConnect] = useState('Mời chọn');
     const options = ['Hoạt động', 'Ngưng hoạt động'];
-    const connect = ['Hoạt động', 'Ngưng hoạt động'];
+    const connect = ['Kết nối', 'Ngưng kết nối'];
 
     useEffect(() => {
         onSnapshot(collection(db, 'products'), (snapshot) => {
@@ -82,8 +82,12 @@ function ListProducts() {
                     <table className={tb('table')}>
                         <thead className={tb('table-header')}>
                             <tr>
-                                <th className={tb('idProduct')}>Mã thiết bị</th>
-                                <th className={tb('nameProduct')}>Tên thiết bị</th>
+                                <th className={tb('idProduct')} style={{ width: '10%' }}>
+                                    Mã thiết bị
+                                </th>
+                                <th className={tb('nameProduct')} style={{ width: '10%' }}>
+                                    Tên thiết bị
+                                </th>
                                 <th className={tb('addressProduct')}>Địa chỉ IP</th>
                                 <th className={tb('activeProduct')}>Trạng thái hoạt động</th>
                                 <th className={tb('connectProduct')}>Trạng thái kết nối</th>

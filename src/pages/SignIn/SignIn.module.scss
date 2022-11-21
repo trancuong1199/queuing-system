@@ -16,6 +16,14 @@
 
 .inner {
     margin-left: 135px;
+
+    & input {
+        cursor: text;
+    }
+
+    & label {
+        cursor: default;
+    }
 }
 
 p,
@@ -28,7 +36,6 @@ label {
     line-height: 27px;
     color: #37474f;
     margin: 10px 0;
-    cursor: pointer;
 }
 
 input {
@@ -41,7 +48,7 @@ input {
 }
 
 .singIn-right {
-    width: 848px;
+    width: 748px;
     background-color: var(--white);
 }
 
@@ -77,4 +84,30 @@ input {
 #password,
 #name {
     cursor: text;
+}
+
+// icon password
+.password {
+    position: relative;
+}
+
+.icon-show {
+    position: absolute;
+    right: 28%;
+    top: 28%;
+    font-size: 2rem;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.error {
+    color: red;
+    font-weight: 500;
+}
+
+strong {
+    font-weight: 400;
+    color: red;
 }

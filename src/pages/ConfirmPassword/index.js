@@ -1,58 +1,84 @@
-import { useState } from 'react';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
-import { toast } from 'react-toastify';
 
 import classNames from 'classnames/bind';
 import Button from '~/components/Button';
 import styles from './ConfirmPassword.module.scss';
 import images from '~/assets/images';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const cx = classNames.bind(styles);
 
 function ConfirmPassword() {
-    const [email, setEmail] = useState('');
-
-    const onChange = (e) => {
-        setEmail(e.target.value);
-    };
-
-    const onSubmit = async (e) => {
+    const handleForgotPassword = async (e) => {
         e.preventDefault();
-        try {
-            const auth = getAuth();
-            await sendPasswordResetEmail(auth, email);
-            toast.success('Email was sent');
-        } catch (error) {
-            toast.error('Could not send reset email');
+        const email = document.querySelector('#input').value;
+        if (email == '') {
+            toast.error('Mời nhập email của bạn', {
+                position: 'top-center',
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+            });
+        } else {
+            try {
+                const auth = getAuth();
+                await sendPasswordResetEmail(auth, email, {
+                    url: 'http://localhost:3000',
+                });
+                toast.success('Mời vào Email xác nhận mật khẩu mới', {
+                    position: 'top-center',
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'light',
+                });
+            } catch (error) {
+                toast.error('Email không chính xác', {
+                    position: 'top-center',
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'light',
+                });
+            }
         }
     };
 
     return (
         <div className={cx('wrapper')}>
             <div className={cx('singIn-left')}>
+                <h5 className={cx('err')}></h5>
+
                 <img src={images.logo} alt="logo" />
-                <form onSubmit={onSubmit}>
-                    <div className={cx('inner')}>
-                        <label htmlFor={cx('name')} className={cx('inner-detail')} id={cx('inner__title')}>
-                            Đặt lại mật khẩu
-                        </label>
-                        <label
-                            htmlFor={cx('inputName')}
-                            className={cx('inner-detail')}
-                            value={email}
-                            onChange={onChange}
-                        >
-                            Vui lòng nhập Email để đặt lại mật khẩu của bạn*
-                        </label>
-                        <input type="text" placeholder="Mời nhập email..." id={cx('inputName')} />
-                    </div>
-                    <div className={cx('btn')}>
-                        <Button outline to="/">
-                            Hủy
-                        </Button>
-                        <Button primary>Tiếp tục</Button>
-                    </div>
-                </form>
+                <div className={cx('inner')}>
+                    <label htmlFor={cx('name')} className={cx('inner-detail')} id={cx('inner__title')}>
+                        Đặt lại mật khẩu
+                    </label>
+                    <label htmlFor={cx('inputName')} className={cx('inner-detail')}>
+                        Vui lòng nhập Email để đặt lại mật khẩu của bạn<strong>*</strong>
+                    </label>
+                    <input type="text" placeholder="Mời nhập email..." id={cx('input')} className={cx('inputEmail')} />
+                </div>
+                <div className={cx('btn')}>
+                    <Button outline to="/">
+                        Hủy
+                    </Button>
+                    <Button primary onClick={handleForgotPassword}>
+                        Tiếp tục
+                    </Button>
+                </div>
+                <ToastContainer />
             </div>
             <div className={cx('singIn-right')}>
                 <img src={images.confirmPassword} alt="img-signIn" />

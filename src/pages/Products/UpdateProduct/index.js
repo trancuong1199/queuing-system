@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { collection, onSnapshot, setDoc, doc } from 'firebase/firestore';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import db from '~/components/Firebase';
 import styles from './UpdateProduct.module.scss';
@@ -47,7 +49,16 @@ function UpdateProduct() {
         };
 
         setDoc(docRef, payload);
-        alert('Cập nhật thành công!');
+        toast.success('Cập nhật thành công', {
+            position: 'top-center',
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+        });
     };
 
     return (
@@ -159,6 +170,7 @@ function UpdateProduct() {
                 <Button primary onClick={handleUpdate}>
                     Cập nhật
                 </Button>
+                <ToastContainer />
             </footer>
         </div>
     );

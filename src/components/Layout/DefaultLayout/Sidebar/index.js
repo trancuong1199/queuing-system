@@ -21,7 +21,7 @@ function Sidebar() {
                     />
                 </div>
                 <div className={cx('menu')}>
-                    <Link className={cx('menu-children')}>
+                    <Link className={cx('menu-children')} to="/dashboard">
                         <TbLayoutDashboard className={cx('menu-icon')} />
                         DashBoard
                     </Link>
@@ -33,24 +33,28 @@ function Sidebar() {
                         <RiCustomerService2Line className={cx('menu-icon')} />
                         Dịch vụ
                     </Link>
-                    <div className={cx('menu-children')}>
+                    <Link className={cx('menu-children')} to="/listNumber">
                         <TfiLayersAlt className={cx('menu-icon')} />
                         Cấp số
-                    </div>
-                    <div className={cx('menu-children')}>
+                    </Link>
+                    <Link className={cx('menu-children')} to="/report">
                         <TfiAgenda className={cx('menu-icon')} />
                         Báo cáo
-                    </div>
+                    </Link>
                     <div className={cx('menu-children')}>
                         <TfiSettings className={cx('menu-icon')} />
                         Cài đặt hệ thống
                         <RiMore2Line className={cx('menu-icon__more')} />
                         <ul className={cx('system-children')}>
-                            <Link className={cx('system-children__link')}>Quản lí vai trò</Link>
+                            <Link className={cx('system-children__link')} to="/listLevel">
+                                Quản lí vai trò
+                            </Link>
                             <Link className={cx('system-children__link')} to="/listAccounts">
                                 Quản lí tài khoản
                             </Link>
-                            <Link className={cx('system-children__link')}>Nhật kí người dùng</Link>
+                            <Link className={cx('system-children__link')} to="/historyActive">
+                                Nhật kí người dùng
+                            </Link>
                         </ul>
                     </div>
                 </div>

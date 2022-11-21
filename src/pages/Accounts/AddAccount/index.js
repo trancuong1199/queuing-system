@@ -1,30 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { setDoc, doc } from 'firebase/firestore';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { setDoc, doc, onSnapshot, collection } from 'firebase/firestore';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import db from '~/components/Firebase';
-import { auth } from '~/components/Firebase';
 import styles from '~/pages/Products/UpdateProduct/UpdateProduct.module.scss';
 import Dropdown from '~/components/Dropdown';
-import styleMain from './AddAccount.module.scss';
 import Button from '~/components/Button';
 
 const cx = classNames.bind(styles);
-const cm = classNames.bind(styleMain);
 const $ = document.querySelector.bind(document);
 
 function AddAccount() {
     const [addEmail, setAddEmail] = useState('');
     const [addPassword, setAddPassword] = useState('');
+    const [isLevel, setIsLevel] = useState([]);
+    let dataLevel = [];
+
+    useEffect(() => {
+        onSnapshot(collection(db, 'level'), (snapshot) => {
+            setIsLevel(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        });
+    }, []);
+
+    isLevel.map((value) => {
+        dataLevel.push(value.name);
+    });
 
     // Dropdown
     const [selected, setSelected] = useState('Mời chọn');
     const [isStatus, setIsStatus] = useState('Mời chọn');
-    const level = ['Marketing', 'Kế toán'];
     const status = ['Hoạt động', 'Không hoạt động'];
 
     const addAccount = async () => {
+        const auth = getAuth();
         const name = $('#idProduct').value;
         const user = $('#user').value;
         const phone = $('#phone').value;
@@ -51,9 +62,27 @@ function AddAccount() {
             } catch (error) {
                 console.log(error.message);
             }
-            alert('Thêm thành công');
+            toast.success('Thêm tài khoản thành công', {
+                position: 'top-center',
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+            });
         } else {
-            alert('Nhập lại sai mật khẩu');
+            toast.error('Nhập lại mật khẩu', {
+                position: 'top-center',
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+            });
         }
     };
 
@@ -101,7 +130,7 @@ function AddAccount() {
                             <label className={cx('form-label')}>
                                 Vai trò:<span>*</span>
                             </label>
-                            <Dropdown selected={selected} setSelected={setSelected} options={level} large />
+                            <Dropdown selected={selected} setSelected={setSelected} options={dataLevel} large />
                         </div>
 
                         <div className={cx('addProduct-form-children')}>
@@ -157,6 +186,7 @@ function AddAccount() {
                 <Button primary onClick={addAccount}>
                     Thêm
                 </Button>
+                <ToastContainer />
             </footer>
         </div>
     );

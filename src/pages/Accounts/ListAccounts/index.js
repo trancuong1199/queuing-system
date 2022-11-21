@@ -10,6 +10,7 @@ import styles from '~/pages/Products/ListProducts/ListProducts.module.scss';
 import style from '~/components/Dropdown/Dropdown.module.scss';
 import tables from '~/components/Table/Table.module.scss';
 import Dropdown from '~/components/Dropdown';
+import { handleGetId } from '../UpdateAccount';
 
 const cx = classNames.bind(styles);
 const cv = classNames.bind(style);
@@ -90,7 +91,7 @@ function ListAccounts() {
                                         </div>
                                     </td>
                                     <td>
-                                        <Button link to="/updateProduct">
+                                        <Button link to="/updateAccount" onClick={() => handleGetId(account.id)}>
                                             <p className={cx('table-results-detail')}>Cập nhật</p>
                                         </Button>
                                     </td>

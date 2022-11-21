@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { collection, onSnapshot, setDoc, doc } from 'firebase/firestore';
 import db from '~/components/Firebase';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import classNames from 'classnames/bind';
 import styles from '~/pages/Service/AddService/AddService.module.scss';
@@ -34,7 +36,16 @@ function AddAccount() {
         const payload = { code: code, name: name, description: description };
 
         setDoc(docRef, payload);
-        alert('Cập nhật thành công!');
+        toast.success('Cập nhật thành công', {
+            position: 'top-center',
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+        });
     };
 
     return (
@@ -140,6 +151,7 @@ function AddAccount() {
                 <Button primary onClick={handleUpdate}>
                     Cập nhập
                 </Button>
+                <ToastContainer />
             </footer>
         </div>
     );

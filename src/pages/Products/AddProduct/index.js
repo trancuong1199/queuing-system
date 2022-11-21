@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind';
 import { collection, addDoc } from 'firebase/firestore';
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import db from '~/components/Firebase';
 import styles from './AddProduct.module.scss';
@@ -34,7 +36,16 @@ function Products() {
         };
 
         await addDoc(collectionRef, payload);
-        alert('Thêm thành công!');
+        toast.success('Thêm thành công', {
+            position: 'top-center',
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+        });
     };
 
     return (
@@ -121,6 +132,7 @@ function Products() {
                     Thêm thiết bị
                 </Button>
             </footer>
+            <ToastContainer />
         </div>
     );
 }

@@ -1,5 +1,7 @@
 import { addDoc, collection } from 'firebase/firestore';
 import db from '~/components/Firebase';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import classNames from 'classnames/bind';
 import styles from './AddService.module.scss';
@@ -24,7 +26,16 @@ function AddService() {
         };
 
         await addDoc(collectionRef, payload);
-        alert('Thêm thành công!');
+        toast.success('Thêm thành công', {
+            position: 'top-center',
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+        });
     };
 
     return (
@@ -121,6 +132,7 @@ function AddService() {
                 <Button primary onClick={handleAddService}>
                     Thêm dịch vụ
                 </Button>
+                <ToastContainer />
             </footer>
         </div>
     );
