@@ -14,10 +14,10 @@ import { handleGetId } from '../UpdateProduct';
 const cx = classNames.bind(styles);
 const cv = classNames.bind(style);
 const cs = classNames.bind(styless);
-let getid;
+let getId;
 
 export const handleDetail = (id) => {
-    getid = id;
+    getId = id;
 };
 
 function ProductDetail() {
@@ -38,30 +38,41 @@ function ProductDetail() {
             <div className={cv('addProduct-main')}>
                 <h4 className={cv('addProduct-main-title')}>Thông tin chi tiết</h4>
                 {products.map((product) => {
-                    if (product.id === getid) {
+                    if (product.id === getId) {
                         return (
                             <>
                                 <div key={product.code}>
                                     <div className={cv('addProduct-form')}>
                                         <div className={cv('addProduct-form-children')}>
-                                            <label className={cv('form-label')}>Mã thiết bị: {product.code}</label>
-                                            <label className={cv('form-label')}>Tên thiết bị: {product.name}</label>
+                                            <label className={cv('form-label')}>
+                                                Mã thiết bị: <span className={cx('detail-value')}>{product.code}</span>
+                                            </label>
+                                            <label className={cv('form-label')}>
+                                                Tên thiết bị: <span className={cx('detail-value')}>{product.name}</span>
+                                            </label>
                                             <label className={cv('form-label')} id={cx('detail-title')}>
-                                                Địa chỉ IP: {product.ip}
+                                                Địa chỉ IP: <span className={cx('detail-value')}>{product.ip}</span>
                                             </label>
                                         </div>
 
                                         <div className={cv('addProduct-form-children')}>
-                                            <label className={cv('form-label')}>Loại thiết bị: {product.type}</label>
-                                            <label className={cv('form-label')}>Tên đăng nhập: {product.user}</label>
+                                            <label className={cv('form-label')}>
+                                                Loại thiết bị:{' '}
+                                                <span className={cx('detail-value')}>{product.type}</span>
+                                            </label>
+                                            <label className={cv('form-label')}>
+                                                Tên đăng nhập:{' '}
+                                                <span className={cx('detail-value')}>{product.user}</span>
+                                            </label>
                                             <label className={cv('form-label')} id={cx('detail-password')}>
-                                                Mật khẩu: {product.password}
+                                                Mật khẩu: <span className={cx('detail-value')}>{product.password}</span>
                                             </label>
                                         </div>
                                     </div>
                                     <div className={cv('addService')}>
                                         <label className={cv('form-label')} id={cx('detail-service')}>
-                                            Dịch vụ sử dụng: {product.service}
+                                            Dịch vụ sử dụng:{' '}
+                                            <span className={cx('detail-value')}>{product.service}</span>
                                         </label>
                                     </div>
                                 </div>

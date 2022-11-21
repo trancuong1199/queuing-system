@@ -28,12 +28,57 @@
 }
 
 .menu-children {
+    position: relative;
     display: flex;
     align-items: center;
     height: 48px;
 
     &:hover {
         cursor: pointer;
+        background-color: var(--hover-color);
+        color: var(--menu-color);
+    }
+
+    &:hover .system-children {
+        display: block;
+        color: #000;
+    }
+}
+
+.system-children {
+    z-index: 999;
+    display: none;
+    position: absolute;
+    margin-top: 97%;
+    margin-left: 100px;
+    text-align: left;
+    width: 200px;
+    height: 144px;
+    border-radius: 12px;
+    filter: drop-shadow(3px 3px 4px rgba(70, 64, 67, 0.1));
+    border-radius: 12px;
+    &::after {
+        position: absolute;
+        content: '';
+        display: block;
+        width: 54%;
+        height: 144px;
+        top: -2px;
+        left: -100px;
+        // background-color: red;
+    }
+}
+
+.system-children__link {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    width: 200px;
+    height: 48px;
+    background: #ffffff;
+    border: 1px solid var(--hover-color);
+
+    &:hover {
         background-color: var(--hover-color);
         color: var(--menu-color);
     }
@@ -53,24 +98,7 @@
 .menu-btn {
     display: flex;
     justify-content: center;
-}
-
-.btn {
-    display: flex;
-    align-items: center;
-    padding: 12px;
-    width: 176px;
-    height: 48px;
-    background: var(--hover-color);
-    border-radius: 8px;
-    border: none;
-    font-size: 1.5rem;
     color: var(--menu-color);
-    margin-top: 250px;
-    justify-content: center;
-    &:hover {
-        cursor: pointer;
-    }
 }
 
 .btn-icon {

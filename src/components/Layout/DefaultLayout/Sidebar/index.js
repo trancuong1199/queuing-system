@@ -6,6 +6,7 @@ import classNames from 'classnames/bind';
 
 import styles from './Sidebar.module.scss';
 import { Link } from 'react-router-dom';
+import Button from '~/components/Button';
 
 const cx = classNames.bind(styles);
 
@@ -44,13 +45,20 @@ function Sidebar() {
                         <TfiSettings className={cx('menu-icon')} />
                         Cài đặt hệ thống
                         <RiMore2Line className={cx('menu-icon__more')} />
+                        <ul className={cx('system-children')}>
+                            <Link className={cx('system-children__link')}>Quản lí vai trò</Link>
+                            <Link className={cx('system-children__link')} to="/listAccounts">
+                                Quản lí tài khoản
+                            </Link>
+                            <Link className={cx('system-children__link')}>Nhật kí người dùng</Link>
+                        </ul>
                     </div>
                 </div>
                 <div className={cx('menu-btn')}>
-                    <button className={cx('btn')}>
+                    <Button logout to="/">
                         <GoSignOut className={cx('btn-icon')} />
                         Đăng xuất
-                    </button>
+                    </Button>
                 </div>
             </div>
         </aside>

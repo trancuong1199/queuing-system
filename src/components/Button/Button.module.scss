@@ -45,13 +45,16 @@
 
 .text {
     display: flex;
-    color: red;
     background: transparent;
     padding: 10px 0;
 
     &:hover {
         cursor: pointer;
         text-decoration: underline;
+    }
+
+    & span {
+        color: red;
     }
 }
 
@@ -71,6 +74,53 @@
 
     &:hover {
         cursor: pointer;
+    }
+}
+
+.update {
+    display: flex;
+    position: absolute;
+    text-align: center;
+    right: 0;
+    top: 25%;
+    align-items: center;
+    padding: 10px 4px 15px 4px;
+    width: 100px;
+    height: 100px;
+    background: var(--hover-color);
+    box-shadow: 0px 0px 6px #e7e9f2;
+    border-radius: 8px 0px 0px 8px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.back {
+    padding-left: 20px;
+    height: 80px;
+    margin-top: 100px;
+}
+
+.logout {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    width: 176px;
+    height: 48px;
+    background: var(--hover-color);
+    border-radius: 8px;
+    border: none;
+    font-size: 1.5rem;
+    margin-top: 250px;
+    justify-content: center;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    & span {
+        display: flex;
     }
 }
 

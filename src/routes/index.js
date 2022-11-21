@@ -13,26 +13,43 @@ import ListProducts from '~/pages/Products/ListProducts';
 
 // Services
 import ListServices from '~/pages/Service/ListServices';
-import ServiceDetail from '~/pages/Service/ServiceDetail';
+import AddService from '~/pages/Service/AddService';
+import UpdateService from '~/pages/Service/UpdateService';
+import DetailService from '~/pages/Service/DetailService';
+
+//Accounts
+import AddAccount from '~/pages/Accounts/AddAccount';
+import ListAccounts from '~/pages/Accounts/ListAccounts';
 
 // Public routes
-const publicRoutes = [
-    { path: '/signin', component: SignIn },
-    { path: '/confirmPassword', component: ConfirmPassword },
-    { path: '/changePassword', component: ChangePassword },
-];
+const publicRoutes = [];
 
 // Private routes
 const privateRoutes = [
-    { path: '/dashboard', component: Dashboard, layout: null },
+    { path: '/dashboard', component: Dashboard },
     { path: '/number', component: Number },
     { path: '/user', component: User },
+
+    // Product
     { path: '/listProducts', component: ListProducts },
     { path: '/addProduct', component: AddProduct },
     { path: '/productDetail', component: ProductDetail },
     { path: '/updateProduct', component: UpdateProduct },
     { path: '/listServices', component: ListServices },
-    { path: '/serviceDetail', component: ServiceDetail },
+
+    // Service
+    { path: '/addService', component: AddService },
+    { path: '/updateService', component: UpdateService },
+    { path: '/detailService', component: DetailService },
+    { path: '/detailService', component: DetailService },
+
+    // Account
+    { path: '/addAccount', component: AddAccount },
+    { path: '/listAccounts', component: ListAccounts },
+
+    { path: '/', component: SignIn, layout: null },
+    { path: '/confirmPassword', component: ConfirmPassword, layout: null },
+    { path: '/changePassword', component: ChangePassword, layout: null },
 ];
 
 export { publicRoutes, privateRoutes };

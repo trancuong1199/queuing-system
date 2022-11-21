@@ -12,6 +12,9 @@ function Button({
     text = false,
     navigate = false,
     link = false,
+    update = false,
+    back = false,
+    logout = false,
     medium,
     small,
     large,
@@ -29,7 +32,19 @@ function Button({
         Comp = 'a';
     }
 
-    const classes = cx('wrapper', { primary, outline, small, medium, large, text, navigate, link });
+    const classes = cx('wrapper', {
+        primary,
+        outline,
+        small,
+        logout,
+        medium,
+        large,
+        text,
+        navigate,
+        link,
+        back,
+        update,
+    });
 
     return (
         <Comp className={classes} {...props}>

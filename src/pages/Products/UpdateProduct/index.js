@@ -1,18 +1,15 @@
 import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
-import { AiFillCaretDown } from 'react-icons/ai';
-import { collection, onSnapshot, setDoc, doc, updateDoc } from 'firebase/firestore';
+import { collection, onSnapshot, setDoc, doc } from 'firebase/firestore';
 
 import db from '~/components/Firebase';
 import styles from './UpdateProduct.module.scss';
 import Dropdown from '~/components/Dropdown';
-import style from '~/components/Dropdown/Dropdown.module.scss';
 import Button from '~/components/Button';
-import { handleItemFirst, handleItemSecond } from '../AddProduct';
 
 const cx = classNames.bind(styles);
-const cv = classNames.bind(style);
 const $ = document.querySelector.bind(document);
+
 let getId;
 
 export const handleGetId = (id) => {
@@ -21,6 +18,8 @@ export const handleGetId = (id) => {
 
 function UpdateProduct() {
     const [products, setProducts] = useState([]);
+    const [selected, setSelected] = useState('Mời chọn');
+    const options = ['Kiosk', 'Display'];
 
     useEffect(() => {
         onSnapshot(collection(db, 'products'), (snapshot) => {
@@ -34,11 +33,18 @@ function UpdateProduct() {
         const ip = $('#ipProduct').value;
         const user = $('#user').value;
         const password = $('#password').value;
-        const title = $('.select-title').textContent;
         const service = $('#service').value;
 
         const docRef = doc(db, 'products', getId);
-        const payload = { code: id, name: name, ip: ip, user: user, password: password, service: service, type: title };
+        const payload = {
+            code: id,
+            name: name,
+            ip: ip,
+            user: user,
+            password: password,
+            service: service,
+            type: selected,
+        };
 
         setDoc(docRef, payload);
         alert('Cập nhật thành công!');
@@ -94,28 +100,13 @@ function UpdateProduct() {
                                         <label className={cx('form-label')}>
                                             Loại thiết bị:<span>*</span>
                                         </label>
-                                        <Dropdown>
-                                            <span className={cv('select-label')} id={cv('add-title')}>
-                                                <p className={cv('select-title')}>{product.type}</p>
-                                                <AiFillCaretDown className={cv('dropdownIcon')} />
-                                            </span>
-                                            <ul className={cv('dropdownList')} medium>
-                                                <li
-                                                    className={cv('option-item')}
-                                                    id={cv('itemLarge')}
-                                                    onClick={handleItemFirst}
-                                                >
-                                                    <span className={cv('option-item-first')}>Kiosk</span>
-                                                </li>
-                                                <li
-                                                    className={cv('option-item')}
-                                                    id={cv('itemLarge')}
-                                                    onClick={handleItemSecond}
-                                                >
-                                                    <span className={cv('option-item-children')}>Display counter</span>
-                                                </li>
-                                            </ul>
-                                        </Dropdown>
+                                        <Dropdown
+                                            selected={selected}
+                                            setSelected={setSelected}
+                                            options={options}
+                                            large
+                                        />
+
                                         <label className={cx('form-label')}>
                                             Tên đăng nhập:<span>*</span>
                                         </label>

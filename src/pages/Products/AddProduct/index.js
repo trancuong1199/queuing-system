@@ -1,37 +1,25 @@
 import classNames from 'classnames/bind';
-import { AiFillCaretDown } from 'react-icons/ai';
 import { collection, addDoc } from 'firebase/firestore';
+import { useState } from 'react';
 
 import db from '~/components/Firebase';
 import styles from './AddProduct.module.scss';
 import Dropdown from '~/components/Dropdown';
-import style from '~/components/Dropdown/Dropdown.module.scss';
 import Button from '~/components/Button';
 
 const cx = classNames.bind(styles);
-const cv = classNames.bind(style);
 const $ = document.querySelector.bind(document);
 
-export const handleItemFirst = () => {
-    const title = $('.select-title');
-    const listInput = $('.option-item-first').textContent;
-    title.innerHTML = listInput;
-};
-
-export const handleItemSecond = () => {
-    const title = $('.select-title');
-    const listInput = $('.option-item-children').textContent;
-    title.innerHTML = listInput;
-};
-
 function Products() {
+    const [selected, setSelected] = useState('Mời chọn');
+    const options = ['Kiosk', 'Display'];
+
     const handleAddProduct = async () => {
         const code = $('#codeProduct').value;
         const name = $('#nameProduct').value;
         const ip = $('#ipProduct').value;
         const user = $('#user').value;
         const password = $('#password').value;
-        const title = $('.select-title').textContent;
         const service = $('#service').value;
 
         const collectionRef = collection(db, 'products');
@@ -42,7 +30,7 @@ function Products() {
             user: user,
             password: password,
             service: service,
-            type: title,
+            type: selected,
         };
 
         await addDoc(collectionRef, payload);
@@ -92,20 +80,7 @@ function Products() {
                         <label className={cx('form-label')}>
                             Loại thiết bị:<span>*</span>
                         </label>
-                        <Dropdown>
-                            <span className={cv('select-label')} id={cv('add-title')}>
-                                <p className={cv('select-title')}>Mời chọn</p>
-                                <AiFillCaretDown className={cv('dropdownIcon')} />
-                            </span>
-                            <ul className={cv('dropdownList')} medium>
-                                <li className={cv('option-item')} id={cv('itemLarge')} onClick={handleItemFirst}>
-                                    <span className={cv('option-item-first')}>Kiosk</span>
-                                </li>
-                                <li className={cv('option-item')} id={cv('itemLarge')} onClick={handleItemSecond}>
-                                    <span className={cv('option-item-children')}>Display counter</span>
-                                </li>
-                            </ul>
-                        </Dropdown>
+                        <Dropdown selected={selected} setSelected={setSelected} options={options} large />
                         <label className={cx('form-label')}>
                             Tên đăng nhập:<span>*</span>
                         </label>

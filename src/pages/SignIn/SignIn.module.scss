@@ -37,7 +37,6 @@ input {
     width: 400px;
     height: 44px;
     border: 1.5px solid #d4d4d7;
-    cursor: pointer;
     border-radius: 8px;
 }
 
@@ -73,4 +72,9 @@ input {
     width: 300px;
     font-size: 3.2rem;
     color: var(--menu-color);
+}
+
+#password,
+#name {
+    cursor: text;
 }

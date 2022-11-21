@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind';
-import { AiFillCaretDown } from 'react-icons/ai';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle, faMagnifyingGlass, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
@@ -41,6 +40,10 @@ const ReadMore = ({ children }) => {
 
 function ListProducts() {
     const [isProducts, setProducts] = useState([]);
+    const [selected, setSelected] = useState('Mời chọn');
+    const [isConnect, setIsConnect] = useState('Mời chọn');
+    const options = ['Hoạt động', 'Ngưng hoạt động'];
+    const connect = ['Hoạt động', 'Ngưng hoạt động'];
 
     useEffect(() => {
         onSnapshot(collection(db, 'products'), (snapshot) => {
@@ -56,37 +59,11 @@ function ListProducts() {
                     <div className={cx('products-header__option-selected')}>
                         <div className={cv('option-selected-children')}>
                             <label className={cv('header__option-selected-title')}>Trạng thái hoạt động</label>
-                            <Dropdown medium>
-                                <span className={cv('select-label')}>
-                                    Tất cả
-                                    <AiFillCaretDown className={cv('dropdownIcon')} />
-                                </span>
-                                <ul className={cv('dropdownList')}>
-                                    <li className={cv('option-item')}>
-                                        <span>Hoạt động</span>
-                                    </li>
-                                    <li class={cv('option-item')}>
-                                        <span>Ngưng hoạt động</span>
-                                    </li>
-                                </ul>
-                            </Dropdown>
+                            <Dropdown selected={selected} setSelected={setSelected} options={options} medium />
                         </div>
                         <div>
                             <label className={cv('header__option-selected-title')}>Trạng thái kết nối</label>
-                            <Dropdown medium>
-                                <span className={cv('select-label')}>
-                                    Tất cả
-                                    <AiFillCaretDown className={cv('dropdownIcon')} />
-                                </span>
-                                <ul className={cv('dropdownList')} medium>
-                                    <li className={cv('option-item')}>
-                                        <span>Kết nối</span>
-                                    </li>
-                                    <li class={cv('option-item')}>
-                                        <span>Mất kết nối</span>
-                                    </li>
-                                </ul>
-                            </Dropdown>
+                            <Dropdown selected={isConnect} setSelected={setIsConnect} options={connect} medium />
                         </div>
                     </div>
                     <div className={cx('products-header__option-search')}>
@@ -118,7 +95,7 @@ function ListProducts() {
                         <tbody>
                             {isProducts.map((product, index) => (
                                 <tr
-                                    className={index % 2 == 0 ? tb('table-results') : tb('table-change')}
+                                    className={index % 2 === 0 ? tb('table-results') : tb('table-change')}
                                     key={product.ip}
                                 >
                                     <th>{product.code}</th>
@@ -127,26 +104,28 @@ function ListProducts() {
                                     <td>
                                         <div className={tb('notiResult')}>
                                             <span>
-                                                {product.active === false ? (
+                                                {product.active === 'Ngưng hoạt động' ? (
                                                     <FontAwesomeIcon className={tb('offIcon')} icon={faCircle} />
                                                 ) : (
                                                     <FontAwesomeIcon className={tb('onIcon')} icon={faCircle} />
                                                 )}
                                             </span>
 
-                                            <p>{product.active === false ? 'Ngưng hoạt động' : 'Hoạt động'}</p>
+                                            <p>
+                                                {product.active === 'Ngưng hoạt động' ? 'Ngưng hoạt động' : 'Hoạt động'}
+                                            </p>
                                         </div>
                                     </td>
                                     <td>
                                         <div className={tb('notiResult')}>
                                             <span>
-                                                {product.connect === false ? (
+                                                {product.connect === 'Ngưng kết nối' ? (
                                                     <FontAwesomeIcon className={tb('offIcon')} icon={faCircle} />
                                                 ) : (
                                                     <FontAwesomeIcon className={tb('onIcon')} icon={faCircle} />
                                                 )}
                                             </span>
-                                            <p>{product.connect === false ? 'Ngưng kết nối' : 'Kết nối'}</p>
+                                            <p>{product.connect === 'Ngưng kết nối' ? 'Ngưng kết nối' : 'Kết nối'}</p>
                                         </div>
                                     </td>
                                     <td>
